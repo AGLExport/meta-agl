@@ -1,4 +1,3 @@
-require conf/include/agl_rcar.inc
 SOC_FAMILY = "r8a779g3"
 BOARD_NAME = "sparrow"
 
@@ -58,7 +57,7 @@ PREFERRED_PROVIDER_libgbm-dev = "libgbm"
 BBMASK = "mesa-gl"
 
 # To build gstreamer plugins
-LICENSE_FLAGS_ACCEPTED = "commercial"
+#LICENSE_FLAGS_ACCEPTED = "commercial"
 
 # Remove ptest to reduce the build time
 # Remove x11 and vulkan to avoid error after removing mesa
