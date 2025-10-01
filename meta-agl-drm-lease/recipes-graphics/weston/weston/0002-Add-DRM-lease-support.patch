@@ -1,7 +1,7 @@
-From 180b3f71ef411c88d4fd40a90ef75ef1a694805e Mon Sep 17 00:00:00 2001
+From 4847b7687295387d6efeceb932664e5262038936 Mon Sep 17 00:00:00 2001
 From: Marius Vlad <marius.vlad@collabora.com>
 Date: Thu, 2 May 2024 19:45:41 +0300
-Subject: [PATCH 2/2] Add DRM lease support
+Subject: [PATCH] Add DRM lease support
 
 Add a command line option to use a DRM lease instead of a primary node for
 output when using the DRM backend.
@@ -10,22 +10,23 @@ Upstream-Status: Pending
 
 Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 Signed-off-by: Damian Hobson-Garcia <dhobsong@igel.co.jp>
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
 ---
- compositor/drm-lease.c      | 51 +++++++++++++++++++++++++++++++++++++
- compositor/drm-lease.h      | 40 +++++++++++++++++++++++++++++
- compositor/main.c           |  9 +++++++
- compositor/meson.build      |  6 +++++
+ frontend/drm-lease.c        | 51 +++++++++++++++++++++++++++++++++++++
+ frontend/drm-lease.h        | 40 +++++++++++++++++++++++++++++
+ frontend/main.c             |  9 +++++++
+ frontend/meson.build        |  6 +++++
  libweston/backend-drm/drm.c |  1 +
  meson_options.txt           |  7 +++++
  6 files changed, 114 insertions(+)
- create mode 100644 compositor/drm-lease.c
- create mode 100644 compositor/drm-lease.h
+ create mode 100644 frontend/drm-lease.c
+ create mode 100644 frontend/drm-lease.h
 
-diff --git a/compositor/drm-lease.c b/compositor/drm-lease.c
+diff --git a/frontend/drm-lease.c b/frontend/drm-lease.c
 new file mode 100644
 index 0000000..11ee2e4
 --- /dev/null
-+++ b/compositor/drm-lease.c
++++ b/frontend/drm-lease.c
 @@ -0,0 +1,51 @@
 +/*
 + * Copyright © 2021 IGEL Co., Ltd.
@@ -78,11 +79,11 @@ index 0000000..11ee2e4
 +	if (lease)
 +		dlm_release_lease(lease);
 +}
-diff --git a/compositor/drm-lease.h b/compositor/drm-lease.h
+diff --git a/frontend/drm-lease.h b/frontend/drm-lease.h
 new file mode 100644
 index 0000000..a102e4c
 --- /dev/null
-+++ b/compositor/drm-lease.h
++++ b/frontend/drm-lease.h
 @@ -0,0 +1,40 @@
 +/*
 + * Copyright © 2021 IGEL Co., Ltd.
@@ -124,10 +125,10 @@ index 0000000..a102e4c
 +}
 +
 +#endif
-diff --git a/compositor/main.c b/compositor/main.c
-index 0e3d375..bb8e27e 100644
---- a/compositor/main.c
-+++ b/compositor/main.c
+diff --git a/frontend/main.c b/frontend/main.c
+index 2339209..53ce17f 100644
+--- a/frontend/main.c
++++ b/frontend/main.c
 @@ -70,6 +70,7 @@
  #include <libweston/weston-log.h>
  #include <libweston/remoting-plugin.h>
@@ -136,15 +137,15 @@ index 0e3d375..bb8e27e 100644
  
  #define WINDOW_TITLE "Weston Compositor"
  /* flight recorder size (in bytes) */
-@@ -152,6 +153,7 @@ struct wet_compositor {
- 	bool drm_backend_loaded;
+@@ -155,6 +156,7 @@ struct wet_compositor {
  	struct wl_listener screenshot_auth;
+ 	struct wl_listener output_created_listener;
  	enum require_outputs require_outputs;
 +	struct dlm_lease *drm_lease;
  };
  
  static FILE *weston_logfile = NULL;
-@@ -718,6 +720,9 @@ usage(int error_code)
+@@ -740,6 +742,9 @@ usage(int error_code)
  		"  --drm-device=CARD\tThe DRM device to use for rendering and output, e.g. \"card0\".\n"
  		"  --additional-devices=CARD\tSecondary DRM devices to use for output only, e.g. \"card1,card2\".\n"
  		"  --use-pixman\t\tUse the pixman (CPU) renderer (deprecated alias for --renderer=pixman)\n"
@@ -154,7 +155,7 @@ index 0e3d375..bb8e27e 100644
  		"  --current-mode\tPrefer current KMS mode over EDID preferred mode\n"
  		"  --continue-without-input\tAllow the compositor to start without input devices\n\n");
  #endif
-@@ -3025,6 +3030,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
+@@ -3381,6 +3386,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
  	struct wet_backend *wb;
  	bool without_input = false;
  	bool force_pixman = false;
@@ -162,7 +163,7 @@ index 0e3d375..bb8e27e 100644
  
  	wet->drm_use_current_mode = false;
  
-@@ -3036,6 +3042,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
+@@ -3392,6 +3398,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
  	const struct weston_option options[] = {
  		{ WESTON_OPTION_STRING, "seat", 0, &config.seat_id },
  		{ WESTON_OPTION_STRING, "drm-device", 0, &config.specific_device },
@@ -170,15 +171,15 @@ index 0e3d375..bb8e27e 100644
  		{ WESTON_OPTION_STRING, "additional-devices", 0, &config.additional_devices},
  		{ WESTON_OPTION_BOOLEAN, "current-mode", 0, &wet->drm_use_current_mode },
  		{ WESTON_OPTION_BOOLEAN, "use-pixman", 0, &force_pixman },
-@@ -3067,6 +3074,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
+@@ -3423,6 +3430,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
  	config.base.struct_version = WESTON_DRM_BACKEND_CONFIG_VERSION;
  	config.base.struct_size = sizeof(struct weston_drm_backend_config);
  	config.configure_device = configure_input_device;
 +	config.device_fd = get_drm_lease(&wet->drm_lease, drm_lease_name);
  
- 	wb = wet_compositor_load_backend(c, WESTON_BACKEND_DRM, &config.base,
- 					 drm_heads_changed, NULL);
-@@ -3080,6 +3088,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
+ 	warn_possible_tty();
+ 
+@@ -3438,6 +3446,7 @@ load_drm_backend(struct weston_compositor *c, int *argc, char **argv,
  	free(config.gbm_format);
  	free(config.seat_id);
  	free(config.specific_device);
@@ -186,10 +187,10 @@ index 0e3d375..bb8e27e 100644
  
  	return 0;
  }
-diff --git a/compositor/meson.build b/compositor/meson.build
-index 7b49c48..d0f7c6a 100644
---- a/compositor/meson.build
-+++ b/compositor/meson.build
+diff --git a/frontend/meson.build b/frontend/meson.build
+index ddaf677..8b58501 100644
+--- a/frontend/meson.build
++++ b/frontend/meson.build
 @@ -25,6 +25,12 @@ if get_option('xwayland')
  	config_h.set_quoted('XSERVER_PATH', get_option('xwayland-path'))
  endif
@@ -204,10 +205,10 @@ index 7b49c48..d0f7c6a 100644
  	'exec_weston',
  	sources: srcs_weston,
 diff --git a/libweston/backend-drm/drm.c b/libweston/backend-drm/drm.c
-index 4e78ad0..3b747ed 100644
+index 636e4ee..f3b355f 100644
 --- a/libweston/backend-drm/drm.c
 +++ b/libweston/backend-drm/drm.c
-@@ -4150,6 +4150,7 @@ config_init_to_defaults(struct weston_drm_backend_config *config)
+@@ -4273,6 +4273,7 @@ config_init_to_defaults(struct weston_drm_backend_config *config)
  {
  	config->renderer = WESTON_RENDERER_AUTO;
  	config->use_pixman_shadow = true;
@@ -216,7 +217,7 @@ index 4e78ad0..3b747ed 100644
  
  WL_EXPORT int
 diff --git a/meson_options.txt b/meson_options.txt
-index ac355f1..b0d32a0 100644
+index 0fbd42a..9907fa8 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
 @@ -105,6 +105,13 @@ option(
