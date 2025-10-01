@@ -28,8 +28,6 @@ SRC_URI += " \
 	file://psplash-drmlease.conf \
 	"
 
-S = "${UNPACKDIR}"
-
 # Licesnse checksum was changed by above patches
 LIC_FILES_CHKSUM = "file://psplash.h;beginline=1;endline=8;md5=db1ed16abf4be6de3d79201093ac4f07"
 

@@ -1,4 +1,4 @@
-From 5f82ef966776c9520af8ca59d12260d7e908e464 Mon Sep 17 00:00:00 2001
+From 644e25064d675436ad69e3ab3ad67be3780b92de Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:41 +0300
 Subject: [PATCH 02/17] Trim trailing spaces
@@ -9,15 +9,16 @@ https://patchwork.yoctoproject.org/project/yocto/cover/20220425075954.10427-1-va
 Upstream-Status: Pending
 
 Signed-off-by: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
 ---
- psplash-console.c | 34 +++++++++++-----------
- psplash-console.h |  8 ++---
+ psplash-console.c | 34 +++++++++++------------
+ psplash-console.h |  8 +++---
  psplash-fb.c      |  4 +--
- psplash-fb.h      | 34 +++++++++++-----------
- psplash-write.c   | 14 ++++-----
- psplash.c         | 74 +++++++++++++++++++++++------------------------
+ psplash-fb.h      | 34 +++++++++++------------
+ psplash-write.c   | 14 +++++-----
+ psplash.c         | 70 +++++++++++++++++++++++------------------------
  psplash.h         |  4 +--
- 7 files changed, 86 insertions(+), 86 deletions(-)
+ 7 files changed, 84 insertions(+), 84 deletions(-)
 
 diff --git a/psplash-console.c b/psplash-console.c
 index 3a40620..c00c6fe 100644
@@ -296,7 +297,7 @@ index a12467a..eee0ea3 100644
        /* perror("Error unable to open fifo"); */
        exit (-1);
 diff --git a/psplash.c b/psplash.c
-index ee1af6b..838ac13 100644
+index 261dd1c..29e1293 100644
 --- a/psplash.c
 +++ b/psplash.c
 @@ -1,9 +1,9 @@
@@ -411,7 +412,7 @@ index ee1af6b..838ac13 100644
  {
    int            err;
    ssize_t        length = 0;
-@@ -154,14 +154,14 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
+@@ -155,14 +155,14 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
  
    end = command;
  
@@ -430,20 +431,7 @@ index ee1af6b..838ac13 100644
  	{
  	  /*
  	  if (errno == EINTR)
-@@ -169,10 +169,10 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
- 	  */
- 	  return;
- 	}
--      
-+
-       length += read (pipe_fd, end, sizeof(command) - (end - command));
- 
--      if (length == 0) 
-+      if (length == 0)
- 	{
- 	  /* Reopen to see if there's anything more for us */
- 	  close(pipe_fd);
-@@ -208,10 +208,10 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
+@@ -210,10 +210,10 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
  
      out:
        end = &command[length];
@@ -456,7 +444,7 @@ index ee1af6b..838ac13 100644
        FD_ZERO(&descriptors);
        FD_SET(pipe_fd,&descriptors);
      }
-@@ -219,8 +219,8 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
+@@ -221,8 +221,8 @@ psplash_main (PSplashFB *fb, int pipe_fd, int timeout)
    return;
  }
  
@@ -467,7 +455,7 @@ index ee1af6b..838ac13 100644
  {
    char      *rundir;
    int        pipe_fd, i = 0, angle = 0, fbdev_id = 0, ret = 0;
-@@ -253,8 +253,8 @@ main (int argc, char** argv)
+@@ -255,8 +255,8 @@ main (int argc, char** argv)
        }
  
      fail:
@@ -478,7 +466,7 @@ index ee1af6b..838ac13 100644
                argv[0]);
        exit(-1);
    }
-@@ -268,7 +268,7 @@ main (int argc, char** argv)
+@@ -270,7 +270,7 @@ main (int argc, char** argv)
  
    if (mkfifo(PSPLASH_FIFO, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP))
      {
@@ -487,7 +475,7 @@ index ee1af6b..838ac13 100644
  	    {
  	      perror("mkfifo");
  	      exit(-1);
-@@ -276,8 +276,8 @@ main (int argc, char** argv)
+@@ -278,8 +278,8 @@ main (int argc, char** argv)
      }
  
    pipe_fd = open (PSPLASH_FIFO,O_RDONLY|O_NONBLOCK);
@@ -498,7 +486,7 @@ index ee1af6b..838ac13 100644
      {
        perror("pipe open");
        exit(-2);
-@@ -301,8 +301,8 @@ main (int argc, char** argv)
+@@ -303,8 +303,8 @@ main (int argc, char** argv)
                          PSPLASH_BACKGROUND_COLOR);
  
    /* Draw the Poky logo  */
@@ -509,7 +497,7 @@ index ee1af6b..838ac13 100644
  #if PSPLASH_IMG_FULLSCREEN
  			 (fb->height - POKY_IMG_HEIGHT)/2,
  #else
-@@ -317,8 +317,8 @@ main (int argc, char** argv)
+@@ -319,8 +319,8 @@ main (int argc, char** argv)
  
  #ifdef PSPLASH_SHOW_PROGRESS_BAR
    /* Draw progress bar border */
@@ -521,7 +509,7 @@ index ee1af6b..838ac13 100644
  			 BAR_IMG_WIDTH,
  			 BAR_IMG_HEIGHT,
 diff --git a/psplash.h b/psplash.h
-index 9be44ba..e8b6660 100644
+index 5f5db63..1029bfe 100644
 --- a/psplash.h
 +++ b/psplash.h
 @@ -1,5 +1,5 @@
@@ -533,5 +521,5 @@ index 9be44ba..e8b6660 100644
   *  Copyright (c) 2006 Matthew Allum <mallum@o-hand.com>
   *
 -- 
-2.25.1
+2.43.0
 

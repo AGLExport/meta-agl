@@ -1,4 +1,4 @@
-From a4f7a5f0dd287895461cd007b23094459b6b88cb Mon Sep 17 00:00:00 2001
+From 046fe7985f5ecc686b37a353022a0a003dbaa8fa Mon Sep 17 00:00:00 2001
 From: Hiroyuki Ishii <ishii.hiroyuki002@jp.panasonic.com>
 Date: Wed, 28 Dec 2022 15:17:24 +0900
 Subject: [PATCH 17/17] drm-lease: Fix incorrect drawing with portrait
@@ -40,5 +40,5 @@ index a5aff90..c20df13 100644
  error:
  	psplash_drm_destroy(drm);
 -- 
-2.25.1
+2.43.0
 

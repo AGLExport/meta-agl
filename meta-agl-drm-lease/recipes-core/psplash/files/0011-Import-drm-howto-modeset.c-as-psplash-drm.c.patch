@@ -1,4 +1,4 @@
-From d5a9fb5cd8505c16d4d75c695af1e64597d36c86 Mon Sep 17 00:00:00 2001
+From 467f32a0449856304108ce6560fb6c10bd4ad103 Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:50 +0300
 Subject: [PATCH 11/17] Import drm-howto modeset.c as psplash-drm.c
@@ -762,5 +762,5 @@ index 0000000..c9a9f5c
 + *  - Written by David Rheinsberg <david.rheinsberg@gmail.com>
 + */
 -- 
-2.25.1
+2.43.0
 

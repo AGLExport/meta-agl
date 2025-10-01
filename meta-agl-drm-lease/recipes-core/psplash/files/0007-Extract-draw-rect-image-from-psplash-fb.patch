@@ -1,4 +1,4 @@
-From d0f899114600ee25eb2d7d2c089deb549c371bd2 Mon Sep 17 00:00:00 2001
+From b481907eec7ab6a3a1f53adb7c0f5a43093f4752 Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:46 +0300
 Subject: [PATCH 07/17] Extract draw rect/image from psplash-fb
@@ -237,7 +237,7 @@ index eb02c62..1eecb47 100644
  psplash_fb_text_size (int                *width,
  		      int                *height,
 diff --git a/psplash.c b/psplash.c
-index f23f03d..2aeb583 100644
+index d9d98b3..9640749 100644
 --- a/psplash.c
 +++ b/psplash.c
 @@ -47,7 +47,7 @@ psplash_draw_msg (PSplashFB *fb, const char *msg)
@@ -273,7 +273,7 @@ index f23f03d..2aeb583 100644
  			    y, barwidth, height,
  			    PSPLASH_BAR_COLOR);
      }
-@@ -301,11 +301,11 @@ main (int argc, char** argv)
+@@ -303,11 +303,11 @@ main (int argc, char** argv)
  #endif
  
    /* Clear the background with #ecece1 */
@@ -287,7 +287,7 @@ index f23f03d..2aeb583 100644
  			 (fb->canvas.width  - POKY_IMG_WIDTH)/2,
  #if PSPLASH_IMG_FULLSCREEN
  			 (fb->canvas.height - POKY_IMG_HEIGHT)/2,
-@@ -321,7 +321,7 @@ main (int argc, char** argv)
+@@ -323,7 +323,7 @@ main (int argc, char** argv)
  
  #ifdef PSPLASH_SHOW_PROGRESS_BAR
    /* Draw progress bar border */
@@ -297,5 +297,5 @@ index f23f03d..2aeb583 100644
  			 SPLIT_LINE_POS(fb),
  			 BAR_IMG_WIDTH,
 -- 
-2.25.1
+2.43.0
 

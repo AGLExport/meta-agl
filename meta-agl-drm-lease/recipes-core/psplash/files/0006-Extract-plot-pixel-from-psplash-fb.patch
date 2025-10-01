@@ -1,4 +1,4 @@
-From f0504ac0abd16b5e98456fb3ea2777e6b64418ec Mon Sep 17 00:00:00 2001
+From 24f026b806ca88b0d8e9f2744a1f8548c001c3c8 Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:45 +0300
 Subject: [PATCH 06/17] Extract plot pixel from psplash-fb
@@ -551,7 +551,7 @@ index 4d5c460..eb02c62 100644
  PSplashFB;
  
 diff --git a/psplash.c b/psplash.c
-index 18c012b..f23f03d 100644
+index 2a5676e..d9d98b3 100644
 --- a/psplash.c
 +++ b/psplash.c
 @@ -22,10 +22,10 @@
@@ -591,7 +591,7 @@ index 18c012b..f23f03d 100644
    y      = SPLIT_LINE_POS(fb) + 4;
    width  = BAR_IMG_WIDTH - 8;
    height = BAR_IMG_HEIGHT - 8;
-@@ -301,16 +301,16 @@ main (int argc, char** argv)
+@@ -303,16 +303,16 @@ main (int argc, char** argv)
  #endif
  
    /* Clear the background with #ecece1 */
@@ -612,7 +612,7 @@ index 18c012b..f23f03d 100644
  			  / PSPLASH_IMG_SPLIT_DENOMINATOR - POKY_IMG_HEIGHT)/2,
  #endif
  			 POKY_IMG_WIDTH,
-@@ -322,7 +322,7 @@ main (int argc, char** argv)
+@@ -324,7 +324,7 @@ main (int argc, char** argv)
  #ifdef PSPLASH_SHOW_PROGRESS_BAR
    /* Draw progress bar border */
    psplash_fb_draw_image (fb,
@@ -622,5 +622,5 @@ index 18c012b..f23f03d 100644
  			 BAR_IMG_WIDTH,
  			 BAR_IMG_HEIGHT,
 -- 
-2.25.1
+2.43.0
 

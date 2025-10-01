@@ -1,4 +1,4 @@
-From 1046e65f7cca2b592fbb7e8f0d1392fb742a67b1 Mon Sep 17 00:00:00 2001
+From 406acfabf3b907008c7832e1b92baa72df78f50b Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:48 +0300
 Subject: [PATCH 09/17] psplash.c: Make psplash_draw_{msg,progress} independent
@@ -15,7 +15,7 @@ Signed-off-by: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
  1 file changed, 33 insertions(+), 31 deletions(-)
 
 diff --git a/psplash.c b/psplash.c
-index 1a5e543..c234d46 100644
+index 1ab3129..5bcb0b0 100644
 --- a/psplash.c
 +++ b/psplash.c
 @@ -21,11 +21,11 @@
@@ -125,7 +125,7 @@ index 1a5e543..c234d46 100644
      }
  #endif
    else if (!strcmp(command,"QUIT"))
-@@ -226,6 +226,7 @@ main (int argc, char** argv)
+@@ -228,6 +228,7 @@ main (int argc, char** argv)
    char      *rundir;
    int        pipe_fd, i = 0, angle = 0, fbdev_id = 0, ret = 0;
    PSplashFB *fb;
@@ -133,7 +133,7 @@ index 1a5e543..c234d46 100644
    bool       disable_console_switch = FALSE;
  
    signal(SIGHUP, psplash_exit);
-@@ -295,22 +296,23 @@ main (int argc, char** argv)
+@@ -297,22 +298,23 @@ main (int argc, char** argv)
  	  ret = -1;
  	  goto fb_fail;
      }
@@ -162,7 +162,7 @@ index 1a5e543..c234d46 100644
  			  / PSPLASH_IMG_SPLIT_DENOMINATOR - POKY_IMG_HEIGHT)/2,
  #endif
  			 POKY_IMG_WIDTH,
-@@ -321,20 +323,20 @@ main (int argc, char** argv)
+@@ -323,20 +325,20 @@ main (int argc, char** argv)
  
  #ifdef PSPLASH_SHOW_PROGRESS_BAR
    /* Draw progress bar border */
@@ -189,5 +189,5 @@ index 1a5e543..c234d46 100644
  
    /* Scene set so let's flip the buffers. */
 -- 
-2.25.1
+2.43.0
 

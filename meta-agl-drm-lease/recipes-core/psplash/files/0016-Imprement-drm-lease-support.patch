@@ -1,4 +1,4 @@
-From 0fcca6600c7d74ec13986d3e9e795f4a7c8afe59 Mon Sep 17 00:00:00 2001
+From 2aee920f5b9edea68ff41466d75852c9829c0576 Mon Sep 17 00:00:00 2001
 From: Hiroyuki Ishii <ishii.hiroyuki002@jp.panasonic.com>
 Date: Tue, 27 Dec 2022 16:43:46 +0900
 Subject: [PATCH 16/17] Imprement drm-lease support
@@ -37,7 +37,7 @@ index c3d4f03..3657889 100644
  psplash_CPPFLAGS += $(SYSTEMD_CFLAGS) -DHAVE_SYSTEMD
  psplash_LDFLAGS += $(SYSTEMD_LIBS)
 diff --git a/configure.ac b/configure.ac
-index 2e5c4f5..1a752e3 100644
+index b1e5f5d..890ae4f 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -21,6 +21,15 @@ AS_IF([test "x$enable_drm" = "xyes"], [
@@ -157,7 +157,7 @@ index fcb7507..a5aff90 100644
   * I hope this was a short but easy overview of the DRM modesetting API. The DRM
   * API offers much more capabilities including:
 diff --git a/psplash.c b/psplash.c
-index ebf8d7a..4aa650d 100644
+index ecafe0b..a4cbe1c 100644
 --- a/psplash.c
 +++ b/psplash.c
 @@ -15,6 +15,9 @@
@@ -170,7 +170,7 @@ index ebf8d7a..4aa650d 100644
  #include "psplash-config.h"
  #include "psplash-colors.h"
  #include "psplash-poky-img.h"
-@@ -267,6 +270,15 @@ main (int argc, char** argv)
+@@ -269,6 +272,15 @@ main (int argc, char** argv)
          continue;
      }
  #endif
@@ -187,5 +187,5 @@ index ebf8d7a..4aa650d 100644
      fail:
        fprintf(stderr,
 -- 
-2.25.1
+2.43.0
 

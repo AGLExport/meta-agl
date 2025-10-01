@@ -1,4 +1,4 @@
-From 733b6d8ae3ed8d5d2972c717bb9a94f65ff6f194 Mon Sep 17 00:00:00 2001
+From f407f791a6c4b66e520fcad85ee522a720609bfb Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:43 +0300
 Subject: [PATCH 04/17] Remove unused save_termios
@@ -27,7 +27,7 @@ index eafa293..6c4599c 100644
    int            visual;
    int            width, height;
 diff --git a/psplash.h b/psplash.h
-index e8b6660..02d6f32 100644
+index 1029bfe..ed3e1b1 100644
 --- a/psplash.h
 +++ b/psplash.h
 @@ -32,7 +32,6 @@
@@ -39,5 +39,5 @@ index e8b6660..02d6f32 100644
  #include <stdbool.h>
  
 -- 
-2.25.1
+2.43.0
 

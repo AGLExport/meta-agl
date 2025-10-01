@@ -1,4 +1,4 @@
-From 6a73289e30a8b60c65f49ac477e35fd3302bafe0 Mon Sep 17 00:00:00 2001
+From d9f7a807a42a8b2b1d93e95b07a083a2f9989f36 Mon Sep 17 00:00:00 2001
 From: Vasyl Vavrychuk <vasyl.vavrychuk@opensynergy.com>
 Date: Mon, 25 Apr 2022 10:59:52 +0300
 Subject: [PATCH 13/17] Reverse modeset_list
@@ -46,5 +46,5 @@ index 30850ed..2468cf1 100644
  
  	/* free resources again */
 -- 
-2.25.1
+2.43.0
 
