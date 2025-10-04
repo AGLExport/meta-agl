@@ -1,0 +1,65 @@
+From beb35b9c95e78c394cc9bf600925f7f484de87c5 Mon Sep 17 00:00:00 2001
+From: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+Date: Sat, 4 Oct 2025 14:03:10 +0900
+Subject: [PATCH] Add can to dtb
+
+Upstream-Status: Pending
+
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ .../arm64/boot/dts/rockchip/rk3588-extra.dtsi | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+index 90414486e466..8dced379e835 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+@@ -629,6 +629,45 @@ combphy1_ps: phy@fee10000 {
+ 		status = "disabled";
+ 	};
+ 
++	can0: can@fea50000 {
++		compatible = "rockchip,rk3568v2-canfd";
++		reg = <0x0 0xfea50000 0x0 0x1000>;
++		interrupts = <GIC_SPI 341 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru CLK_CAN0>, <&cru PCLK_CAN0>;
++		clock-names = "baudclk", "apb_pclk";
++		resets = <&cru SRST_CAN0>, <&cru SRST_P_CAN0>;
++		reset-names = "core", "apb";
++		pinctrl-names = "default";
++		pinctrl-0 = <&can0m0_pins>;
++		status = "disabled";
++	};
++
++	can1: can@fea60000 {
++		compatible = "rockchip,rk3568v2-canfd";
++		reg = <0x0 0xfea60000 0x0 0x1000>;
++		interrupts = <GIC_SPI 342 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru CLK_CAN1>, <&cru PCLK_CAN1>;
++		clock-names = "baudclk", "apb_pclk";
++		resets = <&cru SRST_CAN1>, <&cru SRST_P_CAN1>;
++		reset-names = "core", "apb";
++		pinctrl-names = "default";
++		pinctrl-0 = <&can1m0_pins>;
++		status = "disabled";
++	};
++
++	can2: can@fea70000 {
++		compatible = "rockchip,rk3568v2-canfd";
++		reg = <0x0 0xfea70000 0x0 0x1000>;
++		interrupts = <GIC_SPI 343 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru CLK_CAN2>, <&cru PCLK_CAN2>;
++		clock-names = "baudclk", "apb_pclk";
++		resets = <&cru SRST_CAN2>, <&cru SRST_P_CAN2>;
++		reset-names = "core", "apb";
++		pinctrl-names = "default";
++		pinctrl-0 = <&can2m0_pins>;
++		status = "disabled";
++	};
++
+ 	pcie30phy: phy@fee80000 {
+ 		compatible = "rockchip,rk3588-pcie3-phy";
+ 		reg = <0x0 0xfee80000 0x0 0x20000>;
+-- 
+2.43.0
+
