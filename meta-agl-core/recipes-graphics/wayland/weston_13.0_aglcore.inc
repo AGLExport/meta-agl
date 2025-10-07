@@ -5,6 +5,10 @@ SRC_URI:append = " \
 		  file://0001-backend-drm-don-t-leak-gem_handle_refcnt-in-drm_dest.patch \
 		  file://0002-backend-drm-always-create-gem_handle_refcnt-hash-tab.patch \
 		  file://0001-backend-Add-weston_get_backend_type.patch \
+		  file://0001-drm-try-other-planes-that-may-support-fences.patch \
+		  file://0002-drm-fix-a-few-dma-buf-feedback-failure-reasons.patch \
+		  file://0003-drm-fix-issue-with-enum-being-wrongly-used.patch \
+		  file://0004-drm-avoid-dma-buf-feedback-endless-loop.patch \
 "
 
 WESTON_MAJOR_VERSION = "${@'.'.join(d.getVar('PV').split('.')[0:1])}"
