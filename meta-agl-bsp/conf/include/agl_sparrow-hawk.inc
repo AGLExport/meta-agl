@@ -1,44 +1,16 @@
 SOC_FAMILY = "r8a779g3"
 BOARD_NAME = "sparrow"
 
-#ws2.0
+# Basic board configurations
 DTB_SUFFIX = "r8a779g3-sparrow-hawk"
-WKS_FILE = "singlepart-noloader.wks"
-IMAGE_INSTALL:append = " \
-    kernel-devicetree \
+WKS_FILE ?= "singlepart-noloader.wks"
+
+MACHINE_EXTRA_RRECOMMENDS:append = " \
+    alsa-state \
 "
-
-## tentative
-# Basic packages
-IMAGE_INSTALL:append = " \
-    v4l-utils \
-    i2c-tools \
-    coreutils \
-    kernel-devicetree \
-    alsa-utils \
-    v4l-utils \
-    yavta \
-    nvme-cli \
-    can-utils \
-    expand-rootfs \
-    pciutils \
-    usbutils \
-    kernel-modules \
-    u-boot \
-    libgpiod \
-    python3-pip \
-    python3-gpiod \
+MACHINE_EXTRA_RRECOMMENDS:append:agl-devel = " \
+    packagegroup-renesas-bsp-tools packagegroup-renesas-bsp-demo \
 "
-
-#    libcamera
-#    libcamera-pycamera
-
-# Sparrow-hawk specific packages
-IMAGE_INSTALL:append:sparrow-hawk = " \
-    linux-fitimage \
-    sparrow-hawk-fw \
-"
-
 
 # Enable Gfx Pkgs
 MACHINE_FEATURES:append = " gsx"
@@ -57,19 +29,13 @@ PREFERRED_PROVIDER_libgbm-dev = "libgbm"
 BBMASK = "mesa-gl"
 
 # To build gstreamer plugins
-#LICENSE_FLAGS_ACCEPTED = "commercial"
+LICENSE_FLAGS_ACCEPTED = "commercial"
 
-# Remove ptest to reduce the build time
 # Remove x11 and vulkan to avoid error after removing mesa
-DISTRO_FEATURES:remove = "ptest x11 vulkan"
+DISTRO_FEATURES:remove = "x11 vulkan"
 
 # Upstream Kernel Builds
 PREFERRED_VERSION_linux-renesas = "6.12%"
 LINUXLIBCVERSION = "6.12%"
 # nativesdk-linux-libc-headers is depended on Yocto version
 PREFERRED_VERSION_nativesdk-linux-libc-headers = "6.6"
-
-# Reproducible Builds
-# Set Timestamps at the build start
-export SOURCE_DATE_EPOCH = "${@time.strftime('%s', time.localtime())}"
-REPRODUCIBLE_TIMESTAMP_ROOTFS = "${@time.strftime('%s', time.localtime())}"
