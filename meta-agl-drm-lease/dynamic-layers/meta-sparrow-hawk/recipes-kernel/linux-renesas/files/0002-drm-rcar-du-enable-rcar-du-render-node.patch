@@ -1,0 +1,35 @@
+From 09ce938bc7f36d33e6197622dfb44e9c87bc9e05 Mon Sep 17 00:00:00 2001
+From: Tomohito Esaki <etom@igel.co.jp>
+Date: Wed, 8 Aug 2018 14:20:46 +0900
+Subject: [PATCH 2/7] drm: rcar-du: enable rcar-du render node
+
+Create a render node tied to the DU device so that the allocated
+buffers can be used for scanout, VSP composition, etc.
+
+Upstream-Status: Pending
+
+[dhobsong@igel.co.jp: Rebased to Linux 5.4]
+Signed-off-by: Damian Hobson-Garcia <dhobsong@igel.co.jp>
+
+[Fix for Resolve conflicts for BSP5.9 update]
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
+index 7858e10839f2..07aa3a12f337 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
+@@ -621,7 +621,7 @@ const char *rcar_du_output_name(enum rcar_du_output output)
+ DEFINE_DRM_GEM_DMA_FOPS(rcar_du_fops);
+ 
+ static const struct drm_driver rcar_du_driver = {
+-	.driver_features	= DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
++	.driver_features	= DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_RENDER,
+ 	.dumb_create		= rcar_du_dumb_create,
+ 	.gem_prime_import_sg_table = rcar_du_gem_prime_import_sg_table,
+ 	.fops			= &rcar_du_fops,
+-- 
+2.43.0
+
