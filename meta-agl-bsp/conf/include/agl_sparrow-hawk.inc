@@ -3,7 +3,6 @@ BOARD_NAME = "sparrow"
 
 # Basic board configurations
 DTB_SUFFIX = "r8a779g3-sparrow-hawk"
-WKS_FILE ?= "singlepart-noloader.wks"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
     alsa-state \
