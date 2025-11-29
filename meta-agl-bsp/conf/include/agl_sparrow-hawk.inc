@@ -42,3 +42,9 @@ PREFERRED_VERSION_nativesdk-linux-libc-headers = "6.6"
 BBMASK += " \
     meta-sparrow-hawk/recipes-core/base-files/base-files_%.bbappend \
 "
+
+# Workaround for pcie firmware
+MACHINE_EXTRA_RRECOMMENDS:remove = "sparrow-hawk-fw"
+BBMASK += " \
+    meta-sparrow-hawk/recipes-kernel/linux/sparrow-hawk-fw.bb \
+"
